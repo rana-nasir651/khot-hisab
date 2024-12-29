@@ -166,6 +166,7 @@ table {
     border-collapse: collapse;
     margin-top: 20px;
     animation: fadeInUp 1s ease-out;
+    font-size: 14px; /* Adjusting font size for better readability */
 }
 
 th, td {
@@ -173,13 +174,15 @@ th, td {
     text-align: center;
     border: 1px solid #ddd;
     font-size: 14px;
+    color: #ffffff;
 }
 
 th {
-    background-color: #ff00ff;
-    color: white;
+    background-color: #8e44ad;
+    color: #ffffff;
     font-weight: bold;
     font-size: 16px;
+    text-transform: uppercase;
 }
 
 tr:nth-child(even) {
@@ -193,6 +196,30 @@ tr:nth-child(odd) {
 tr:hover {
     background-color: rgba(255, 0, 255, 0.3);
     cursor: pointer;
+}
+
+/* Add smooth transitions */
+th, td {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+tr:hover th, tr:hover td {
+    background-color: rgba(255, 0, 255, 0.2);
+    color: #ff00ff;
+}
+
+/* Borders */
+th, td {
+    border: 2px solid #3b3b3b;
+}
+
+/* Alternating row colors */
+tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+tr:nth-child(odd) {
+    background-color: rgba(0, 255, 255, 0.1);
 }
 
 /* Animations */
@@ -250,7 +277,7 @@ footer {
     position: absolute;
     bottom: 0;
     width: 100%;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 footer a {
@@ -281,5 +308,77 @@ footer a:hover {
     th, td {
         font-size: 12px;
         padding: 12px;
+    }
+}
+
+@media (max-width: 425px) {
+    .container {
+        padding: 20px;
+        width: 90%;
+        max-width: 100%;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    input, button {
+        font-size: 16px;
+        padding: 12px;
+    }
+
+    .plus-button {
+        font-size: 16px;
+        padding: 15px 18px;
+    }
+
+    table td, table th {
+        font-size: 12px;
+        padding: 12px;
+    }
+
+    table {
+        margin-top: 15px;
+    }
+
+    footer {
+        font-size: 14px;
+        padding: 15px 0;
+    }
+}
+
+@media (max-width: 320px) {
+    .container {
+        padding: 15px;
+        width: 90%;
+        max-width: 100%;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    input, button {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .plus-button {
+        font-size: 14px;
+        padding: 12px 14px;
+    }
+
+    table td, table th {
+        font-size: 10px;
+        padding: 8px;
+    }
+
+    table {
+        margin-top: 10px;
+    }
+
+    footer {
+        font-size: 12px;
+        padding: 10px 0;
     }
 }
