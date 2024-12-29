@@ -31,7 +31,8 @@ body {
 /* Main Container */
 .container {
     width: 100%;
-    max-width: 600px; /* Set a max-width to prevent overflow */
+    max-width: 600px;
+    /* Set a max-width to prevent overflow */
     background: rgba(0, 0, 0, 0.8);
     padding: 40px;
     border-radius: 20px;
@@ -40,8 +41,10 @@ body {
     transform: scale(1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     backdrop-filter: blur(10px);
-    box-sizing: border-box; /* Ensures padding doesn't push elements outside */
-    overflow: hidden; /* Prevents content from overflowing */
+    box-sizing: border-box;
+    /* Ensures padding doesn't push elements outside */
+    overflow: hidden;
+    /* Prevents content from overflowing */
 }
 
 /* Hover effect for container */
@@ -81,7 +84,8 @@ input {
     color: #ffffff;
     font-size: 1rem;
     transition: all 0.4s ease;
-    box-sizing: border-box; /* Prevents padding from causing overflow */
+    box-sizing: border-box;
+    /* Prevents padding from causing overflow */
 }
 
 input:focus {
@@ -166,10 +170,12 @@ table {
     border-collapse: collapse;
     margin-top: 20px;
     animation: fadeInUp 1s ease-out;
-    font-size: 14px; /* Adjusting font size for better readability */
+    font-size: 14px;
+    /* Adjusting font size for better readability */
 }
 
-th, td {
+th,
+td {
     padding: 15px;
     text-align: center;
     border: 1px solid #ddd;
@@ -199,17 +205,20 @@ tr:hover {
 }
 
 /* Add smooth transitions */
-th, td {
+th,
+td {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-tr:hover th, tr:hover td {
+tr:hover th,
+tr:hover td {
     background-color: rgba(255, 0, 255, 0.2);
     color: #ff00ff;
 }
 
 /* Borders */
-th, td {
+th,
+td {
     border: 2px solid #3b3b3b;
 }
 
@@ -228,6 +237,7 @@ tr:nth-child(odd) {
         opacity: 0;
         transform: scale(0.9);
     }
+
     100% {
         opacity: 1;
         transform: scale(1);
@@ -238,11 +248,13 @@ tr:nth-child(odd) {
     0% {
         text-shadow: 0 0 5px #15ff00, 0 0 10px #0dff00, 0 0 20px #932c93;
     }
+
     50% {
         text-shadow: 0 0 15px #983198, 0 0 30px #106a1a, 0 0 60px #ae28ae;
     }
+
     100% {
-        text-shadow: 0 0 5px #674467, 0 0 10px  #1a8e20, 0 0 20px #e72ce7;
+        text-shadow: 0 0 5px #674467, 0 0 10px #1a8e20, 0 0 20px #e72ce7;
     }
 }
 
@@ -251,6 +263,7 @@ tr:nth-child(odd) {
         opacity: 0;
         transform: translateY(20px);
     }
+
     100% {
         opacity: 1;
         transform: translateY(0);
@@ -262,6 +275,7 @@ tr:nth-child(odd) {
         transform: translate(-50%, -50%) scale(0);
         opacity: 0.5;
     }
+
     100% {
         transform: translate(-50%, -50%) scale(1);
         opacity: 0;
@@ -305,7 +319,8 @@ footer a:hover {
         padding: 12px;
     }
 
-    th, td {
+    th,
+    td {
         font-size: 12px;
         padding: 12px;
     }
@@ -322,7 +337,8 @@ footer a:hover {
         font-size: 1.8rem;
     }
 
-    input, button {
+    input,
+    button {
         font-size: 16px;
         padding: 12px;
     }
@@ -332,7 +348,8 @@ footer a:hover {
         padding: 15px 18px;
     }
 
-    table td, table th {
+    table td,
+    table th {
         font-size: 12px;
         padding: 12px;
     }
@@ -358,7 +375,8 @@ footer a:hover {
         font-size: 1.5rem;
     }
 
-    input, button {
+    input,
+    button {
         font-size: 14px;
         padding: 10px;
     }
@@ -368,7 +386,8 @@ footer a:hover {
         padding: 12px 14px;
     }
 
-    table td, table th {
+    table td,
+    table th {
         font-size: 10px;
         padding: 8px;
     }
@@ -381,4 +400,38 @@ footer a:hover {
         font-size: 12px;
         padding: 10px 0;
     }
+}
+
+/* new code goes here */
+
+.btn-con {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    position: relative;
+}
+
+.btn-clr {
+    width: 60px;
+    height: 40px;
+    background: linear-gradient(45deg, #e74c3c, #c0392b);
+    /* Red gradient background */
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.btn-clr:hover {
+    transform: scale(1.05);
+}
+
+.btn-clr.clicked {
+    background: linear-gradient(45deg, #4caf50, #2e7d32);
+    /* Green when clicked */
 }
