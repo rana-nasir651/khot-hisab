@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="khott.css">
+    <title>کھوٹ کیلکولیٹر</title>
+    <style>
+        /* (Existing Styles Remain the Same) */
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>کھوٹ کیلکولیٹر</h1>
+
+        <!-- Weight Inputs -->
+        <label for="weightLoading">لوڈنگ کے وقت وزن (کلوگرام):</label>
+        <input type="number" id="weightLoading" placeholder="لوڈنگ کے وقت وزن درج کریں">
+
+        <label for="weightEmptying">خالی کرنے کے وقت وزن (کلوگرام):</label>
+        <input type="number" id="weightEmptying" placeholder="خالی کرنے کے وقت وزن درج کریں">
+
+        <!-- Supplier Fields -->
+        <div class="supplier-fields">
+            <label for="supplierWeight"></label>
+            <div class="supplier">
+                <label class="supplierLabel">سپلائر 1 کا وزن (کلوگرام):</label>
+                <input type="number" class="supplierWeight" placeholder="سپلائر کا وزن درج کریں">
+            </div>
+            <button type="button" class="plus-button" onclick="addSupplierField()">+</button>
+        </div>
+
+        <!-- Expense Fields -->
+        <div class="expense-fields">
+            <label for="totalExpense">کل خرچ درج کریں:</label>
+            <input type="number" id="totalExpense" placeholder="کل خرچ درج کریں">
+        </div>
+
+        <button onclick="calculateKhott()">کھوٹ کیلکولیٹ کریں</button>
+
+        <div id="result" class="result" style="display: none;">
+            <table id="resultTable">
+                <thead>
+                    <tr>
+                        <th>سپلائر</th>
+                        <th>کھوٹ حصہ (کلوگرام)</th>
+                        <th>خرچ (روپے)</th>
+                        <th>حقیقی وزن (وزن + کھوٹ)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        let supplierCount = 1; // Initialize supplier count
+
+        function addSupplierField() {
+            supplierCount++; // Increment supplier count
+
+            const supplierFieldsContainer = document.querySelector('.supplier-fields');
+            const newSupplierField = document.createElement('div');
+            newSupplierField.classList.add('supplier');
+            newSupplierField.innerHTML = `
+                <label class="supplierLabel">سپلائر ${supplierCount} کا وزن (کلوگرام):</label>
+                <input type="number" class="supplierWeight" placeholder="سپلائر کا وزن درج کریں">
+            `;
+            supplierFieldsContainer.insertBefore(newSupplierField, supplierFieldsContainer.querySelector('.plus-button'));
+        }
+
+        function calculateKhott() {
+            const weightLoading = parseFloat(document.getElementById('weightLoading').value);
+            const weightEmptying = parseFloat(document.getElementById('weightEmptying').value);
+            const supplierWeights = Array.from(document.querySelectorAll('.supplierWeight')).map(input => parseFloat(input.value));
+            const totalExpense = parseFloat(document.getElementById('totalExpense').value);
+
+            if (
+                isNaN(weightLoading) || isNaN(weightEmptying) ||
+                weightLoading <= 0 || weightEmptying <= 0 || supplierWeights.some(isNaN) || supplierWeights.some(weight => weight <= 0) ||
+                isNaN(totalExpense) || totalExpense <= 0
+            ) {
+                alert('براہ کرم درست مثبت نمبر درج کریں۔');
+                return;
+            }
+
+            // Calculate total Khott
+            const totalKhott = weightLoading - weightEmptying;
+
+            if (totalKhott < 0) {
+                alert('خالی کرنے کا وزن لوڈنگ کے وزن سے زیادہ نہیں ہوسکتا۔');
+                return;
+            }
+
+            // Calculate total supplier weight
+            const totalSupplierWeight = supplierWeights.reduce((acc, curr) => acc + curr, 0);
+
+            // Expense calculations
+            const expensePerKg = totalExpense / weightLoading;
+
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+            const resultTableBody = document.querySelector('#resultTable tbody');
+            resultTableBody.innerHTML = ''; // Clear previous results
+
+            // For each supplier, calculate their Khott contribution based on weight proportion
+            supplierWeights.forEach((supplierWeight, index) => {
+                // Calculate the supplier's proportion of the total weight
+                const supplierKhott = (supplierWeight / totalSupplierWeight) * totalKhott;
+
+                // Calculate the supplier's total weight (weight + Khott)
+                const supplierTotalWeight = supplierWeight + supplierKhott;
+
+                // Calculate supplier's expense
+                const supplierExpense = supplierTotalWeight * expensePerKg;
+
+                // Add result to table
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>سپلائر ${index + 1}</td>
+                    <td>${supplierKhott.toFixed(2)}</td>
+                    <td>${supplierExpense.toFixed(2)}</td>
+                    <td>${supplierTotalWeight.toFixed(2)}</td>
+                `;
+                resultTableBody.appendChild(row);
+            });
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,285 @@
+/* General Body Styles */
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+    background: radial-gradient(circle, #111, #333);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    color: white;
+}
+
+/* Font Face for Nastaleeq */
+@font-face {
+    font-family: 'Nastaleeq';
+    src: url('fonts/JameelNooriNastaleeq.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Applying Urdu Font */
+.urdu-text {
+    font-family: 'Nastaleeq', 'Arial', sans-serif;
+    direction: rtl;
+    font-size: 18px;
+    line-height: 2;
+    color: #4b2e83;
+}
+
+/* Main Container */
+.container {
+    width: 100%;
+    max-width: 600px; /* Set a max-width to prevent overflow */
+    background: rgba(0, 0, 0, 0.8);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    animation: fadeIn 1s ease-out;
+    transform: scale(1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    backdrop-filter: blur(10px);
+    box-sizing: border-box; /* Ensures padding doesn't push elements outside */
+    overflow: hidden; /* Prevents content from overflowing */
+}
+
+/* Hover effect for container */
+.container:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(255, 0, 255, 0.5);
+}
+
+/* Headings */
+h1 {
+    text-align: center;
+    color: #ff00ff;
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    animation: neonText 1.5s ease-in-out infinite alternate;
+}
+
+/* Labels */
+label {
+    display: block;
+    margin: 15px 0 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #f1c40f;
+}
+
+/* Inputs */
+input {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    font-size: 1rem;
+    transition: all 0.4s ease;
+    box-sizing: border-box; /* Prevents padding from causing overflow */
+}
+
+input:focus {
+    border-color: #ff00ff;
+    box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
+    outline: none;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Buttons */
+button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    background: linear-gradient(45deg, #ff00ff, #00ffff);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 5px 15px rgba(255, 0, 255, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 255, 255, 0.4);
+    background: linear-gradient(45deg, #00ffff, #ff00ff);
+}
+
+/* Plus Button */
+.plus-button {
+    width: auto;
+    background: linear-gradient(45deg, #f39c12, #e67e22);
+    color: white;
+    font-size: 18px;
+    padding: 18px 22px;
+    border-radius: 50%;
+    margin: 20px auto;
+    display: block;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 255, 255, 0.2);
+    position: relative;
+    transition: transform 0.4s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.plus-button:hover {
+    transform: scale(1.1) rotate(15deg);
+    box-shadow: 0 8px 20px rgba(0, 255, 255, 0.4);
+    background: linear-gradient(45deg, #e67e22, #f39c12);
+}
+
+.plus-button:before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent);
+    animation: ripple 1.5s infinite;
+    transform: translate(-50%, -50%) scale(0);
+    border-radius: 50%;
+    z-index: 1;
+}
+
+/* Results Section */
+.result {
+    margin-top: 30px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    border: 1px solid #f1c40f;
+    box-shadow: inset 0 0 10px rgba(0, 255, 255, 0.2);
+    animation: fadeInUp 1s ease-out;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    animation: fadeInUp 1s ease-out;
+}
+
+th, td {
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+
+th {
+    background-color: #ff00ff;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+tr:nth-child(even) {
+    background-color: rgba(255, 0, 255, 0.1);
+}
+
+tr:nth-child(odd) {
+    background-color: rgba(0, 255, 255, 0.1);
+}
+
+tr:hover {
+    background-color: rgba(255, 0, 255, 0.3);
+    cursor: pointer;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes neonText {
+    0% {
+        text-shadow: 0 0 5px #15ff00, 0 0 10px #0dff00, 0 0 20px #932c93;
+    }
+    50% {
+        text-shadow: 0 0 15px #983198, 0 0 30px #106a1a, 0 0 60px #ae28ae;
+    }
+    100% {
+        text-shadow: 0 0 5px #674467, 0 0 10px  #1a8e20, 0 0 20px #e72ce7;
+    }
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes ripple {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0.5;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0;
+    }
+}
+
+/* Footer Styles */
+footer {
+    text-align: center;
+    background: #2c3e50;
+    color: #fff;
+    padding: 20px 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    font-size: 16px;
+}
+
+footer a {
+    color: #fff;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 30px;
+        width: 90%;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    button {
+        font-size: 16px;
+        padding: 12px;
+    }
+
+    th, td {
+        font-size: 12px;
+        padding: 12px;
+    }
+}
