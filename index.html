@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <title>کھوٹ کیلکولیٹر</title>
     <style>
-        /* (Existing Styles Remain the Same) */
+        /* Add your existing styles here */
     </style>
 </head>
 
@@ -16,7 +16,7 @@
         <h1>کھوٹ کیلکولیٹر</h1>
         <div class="btn-con">
             <button onclick="clearFields()" class="btn-clr">
-                clear
+                Clear
             </button>
         </div>
 
@@ -32,6 +32,7 @@
             <label for="supplierWeight"></label>
             <div class="supplier">
                 <label class="supplierLabel">سپلائر 1 کا وزن (کلوگرام):</label>
+                <input type="text" class="supplierName" placeholder="سپلائر کا نام درج کریں">
                 <input type="number" class="supplierWeight" placeholder="سپلائر کا وزن درج کریں">
             </div>
             <button type="button" class="plus-button" onclick="addSupplierField()">+</button>
@@ -49,7 +50,8 @@
             <table id="resultTable">
                 <thead>
                     <tr>
-                        <th>سپلائر</th>
+                        <th>سپلائر کا نام</th>
+                        <th>سپلائر کا وزن</th>
                         <th>کھوٹ حصہ (کلوگرام)</th>
                         <th>خرچ (روپے)</th>
                         <th>حقیقی وزن (وزن + کھوٹ)</th>
@@ -62,26 +64,6 @@
     </div>
 
     <script>
-        function clearFields() {
-            // Reset the weight input fields
-            document.getElementById('weightLoading').value = '';
-            document.getElementById('weightEmptying').value = '';
-            document.getElementById('totalExpense').value = '';
-
-            // Reset the supplier weight fields
-            const supplierWeightInputs = document.querySelectorAll('.supplierWeight');
-            supplierWeightInputs.forEach(input => input.value = '');
-
-            // Hide the result table
-            const resultDiv = document.getElementById('result');
-            resultDiv.style.display = 'none';
-
-            // Keep the dynamic supplier fields intact, just clear their values
-            const supplierFieldsContainer = document.querySelector('.supplier-fields');
-            const supplierInputs = supplierFieldsContainer.querySelectorAll('.supplierWeight');
-            supplierInputs.forEach(input => input.value = '');
-        }
-
         let supplierCount = 1; // Initialize supplier count
 
         function addSupplierField() {
@@ -92,15 +74,31 @@
             newSupplierField.classList.add('supplier');
             newSupplierField.innerHTML = `
                 <label class="supplierLabel">سپلائر ${supplierCount} کا وزن (کلوگرام):</label>
+                <input type="text" class="supplierName" placeholder="سپلائر کا نام درج کریں">
                 <input type="number" class="supplierWeight" placeholder="سپلائر کا وزن درج کریں">
             `;
             supplierFieldsContainer.insertBefore(newSupplierField, supplierFieldsContainer.querySelector('.plus-button'));
+        }
+
+        function clearFields() {
+            document.getElementById('weightLoading').value = '';
+            document.getElementById('weightEmptying').value = '';
+            document.getElementById('totalExpense').value = '';
+
+            const supplierWeightInputs = document.querySelectorAll('.supplierWeight');
+            supplierWeightInputs.forEach(input => input.value = '');
+
+            const supplierNameInputs = document.querySelectorAll('.supplierName');
+            supplierNameInputs.forEach(input => input.value = '');
+
+            document.getElementById('result').style.display = 'none';
         }
 
         function calculateKhott() {
             const weightLoading = parseFloat(document.getElementById('weightLoading').value);
             const weightEmptying = parseFloat(document.getElementById('weightEmptying').value);
             const supplierWeights = Array.from(document.querySelectorAll('.supplierWeight')).map(input => parseFloat(input.value));
+            const supplierNames = Array.from(document.querySelectorAll('.supplierName')).map(input => input.value.trim());
             const totalExpense = parseFloat(document.getElementById('totalExpense').value);
 
             if (
@@ -112,7 +110,6 @@
                 return;
             }
 
-            // Calculate total Khott
             const totalKhott = weightLoading - weightEmptying;
 
             if (totalKhott < 0) {
@@ -120,35 +117,27 @@
                 return;
             }
 
-            // Calculate total supplier weight
             const totalSupplierWeight = supplierWeights.reduce((acc, curr) => acc + curr, 0);
-
-            // Expense calculations
             const expensePerKg = totalExpense / weightLoading;
 
             const resultDiv = document.getElementById('result');
             resultDiv.style.display = 'block';
             const resultTableBody = document.querySelector('#resultTable tbody');
-            resultTableBody.innerHTML = ''; // Clear previous results
+            resultTableBody.innerHTML = '';
 
-            // For each supplier, calculate their Khott contribution based on weight proportion
             supplierWeights.forEach((supplierWeight, index) => {
-                // Calculate the supplier's proportion of the total weight
+                const supplierName = supplierNames[index] || `سپلائر ${index + 1}`;
                 const supplierKhott = (supplierWeight / totalSupplierWeight) * totalKhott;
-
-                // Calculate the supplier's total weight (weight + Khott)
                 const supplierTotalWeight = supplierWeight + supplierKhott;
-
-                // Calculate supplier's expense
                 const supplierExpense = supplierTotalWeight * expensePerKg;
 
-                // Add result to table
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>سپلائر ${index + 1}</td>
+                    <td>${supplierName}</td>
+                    <td>${supplierWeight.toFixed(2)}</td>
                     <td>${supplierKhott.toFixed(2)}</td>
-                    <td>${supplierExpense.toFixed(2)}</td>
                     <td>${supplierTotalWeight.toFixed(2)}</td>
+                    <td>${supplierExpense.toFixed(2)}</td>
                 `;
                 resultTableBody.appendChild(row);
             });
