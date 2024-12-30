@@ -139,20 +139,6 @@ button:hover {
     background: linear-gradient(45deg, #e67e22, #f39c12);
 }
 
-.plus-button:before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent);
-    animation: ripple 1.5s infinite;
-    transform: translate(-50%, -50%) scale(0);
-    border-radius: 50%;
-    z-index: 1;
-}
-
 /* Results Section */
 .result {
     margin-top: 30px;
