@@ -55,11 +55,17 @@
                         <th>کھوٹ حصہ (کلوگرام)</th>
                         <th>حقیقی وزن (وزن + کھوٹ)</th>
                         <th>خرچ (روپے)</th>
-
                     </tr>
                 </thead>
                 <tbody>
                 </tbody>
+                <tr id="totalcell">
+                    <td><b>مجموعی:</b></td>
+                    <td id="totalSupplierWeightCell"></td>
+                    <td id="totalKhottCell"></td>
+                    <td id="totalActualWeightCell"></td>
+                    <td id="totalExpenseCell"></td>
+                </tr>
             </table>
         </div>
     </div>
@@ -126,11 +132,19 @@
             const resultTableBody = document.querySelector('#resultTable tbody');
             resultTableBody.innerHTML = '';
 
+            let totalActualWeight = 0;
+            let totalSupplierExpense = 0;
+            let totalSupplierKhott = 0;
+
             supplierWeights.forEach((supplierWeight, index) => {
                 const supplierName = supplierNames[index] || `سپلائر ${index + 1}`;
                 const supplierKhott = (supplierWeight / totalSupplierWeight) * totalKhott;
                 const supplierTotalWeight = supplierWeight + supplierKhott;
                 const supplierExpense = supplierTotalWeight * expensePerKg;
+
+                totalSupplierKhott += supplierKhott;
+                totalActualWeight += supplierTotalWeight;
+                totalSupplierExpense += supplierExpense;
 
                 const row = document.createElement('tr');
                 row.innerHTML = `
@@ -142,6 +156,12 @@
                 `;
                 resultTableBody.appendChild(row);
             });
+
+            // Update totals in the table
+            document.getElementById('totalSupplierWeightCell').textContent = totalSupplierWeight.toFixed(2);
+            document.getElementById('totalKhottCell').textContent = totalSupplierKhott.toFixed(2);
+            document.getElementById('totalActualWeightCell').textContent = totalActualWeight.toFixed(2);
+            document.getElementById('totalExpenseCell').textContent = totalSupplierExpense.toFixed(2);
         }
     </script>
 </body>

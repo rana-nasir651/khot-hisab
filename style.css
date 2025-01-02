@@ -421,3 +421,11 @@ footer a:hover {
     background: linear-gradient(45deg, #4caf50, #2e7d32);
     /* Green when clicked */
 }
+
+#totalcell{
+    background-color: #654520;
+}
+#totalcell:hover{
+    background-color: white;
+    color: #111 !important;
+}
